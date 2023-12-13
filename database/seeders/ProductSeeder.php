@@ -93,11 +93,11 @@ class ProductSeeder extends Seeder
             unset($product['ingredients']);
             $product = \App\Models\Product::factory()->create($product);
             // Create the ingredients
-            foreach ($ingredients as $ingredient) {
-                $ingredient = Ingredient::firstWhere('name', $ingredient['name']);
+            foreach ($ingredients as $productIngredient) {
+                $ingredient = Ingredient::firstWhere('name', $productIngredient['name']);
                 // Create the pivot
                 $product->ingredients()->attach($ingredient->id, [
-                    'quantity' => $ingredient->quantity,
+                    'quantity' => $productIngredient['quantity'],
                 ]);
             }
         }
