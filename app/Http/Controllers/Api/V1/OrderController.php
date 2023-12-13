@@ -21,6 +21,10 @@ class OrderController extends Controller
         }
 
 
+
+        //Update stock
+        $order->updateStock();
+
         return response()->json([
             'message' => 'Order placed successfully',
             'order' => $order,
