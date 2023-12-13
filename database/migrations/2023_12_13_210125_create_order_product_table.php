@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('order_product', function (Blueprint $table) {
-            $table->uuid('order_id');
-            $table->uuid('product_id');
+            $table->foreignUuid('order_id')->constrained()->onDelete('cascade');
+            $table->foreignUuid('product_id')->constrained()->onDelete('cascade');
             $table->primary(['order_id', 'product_id']);
             $table->unsignedInteger('quantity')->default(1);
             $table->timestamps();

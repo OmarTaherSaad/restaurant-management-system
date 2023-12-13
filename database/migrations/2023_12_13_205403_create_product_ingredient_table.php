@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('product_ingredient', function (Blueprint $table) {
-            $table->uuid('product_id');
-            $table->uuid('ingredient_id');
+            $table->foreignUuid('product_id')->constrained()->onDelete('cascade');
+            $table->foreignUuid('ingredient_id')->constrained()->onDelete('cascade');
             $table->primary(['product_id', 'ingredient_id']);
             $table->unsignedFloat('quantity')->default(0);
             $table->timestamps();
