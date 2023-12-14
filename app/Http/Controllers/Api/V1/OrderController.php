@@ -12,6 +12,7 @@ class OrderController extends Controller
     public function store(StoreOrderRequest $request)
     {
         $data = $request->validated();
+        //Assuming that sum of ingredient quantities is less than the stock and order is valid
         /** @var Order $order */
         $order = Order::create();
         foreach ($data['products'] as $product) {
@@ -19,9 +20,6 @@ class OrderController extends Controller
                 'quantity' => $product['quantity'],
             ]);
         }
-
-
-
         //Update stock
         $order->updateStock();
 

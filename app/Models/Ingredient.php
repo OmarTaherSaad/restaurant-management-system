@@ -15,6 +15,7 @@ class Ingredient extends Model
         'quantity',
         'unit',
         'full_stock',
+        'is_notified_of_low_stock',
     ];
 
     public function products()

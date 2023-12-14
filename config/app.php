@@ -185,4 +185,9 @@ return [
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
+    /**
+     * Email to notify when any ingredient is low on stock (50% or less)
+     */
+    'low_stock_email' => env('LOW_STOCK_NOTIFICATION_EMAIL'),
+
 ];
