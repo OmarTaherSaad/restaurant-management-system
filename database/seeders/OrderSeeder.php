@@ -2,7 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Database\Seeder;
 
 class OrderSeeder extends Seeder
@@ -21,8 +22,6 @@ class OrderSeeder extends Seeder
 
         $orders = [
             [
-                'name' => 'Order 1',
-                'description' => 'A delicious order',
                 'products' => [
                     [
                         'name' => 'Burger',
@@ -35,8 +34,6 @@ class OrderSeeder extends Seeder
                 ],
             ],
             [
-                'name' => 'Order 2',
-                'description' => 'A delicious order',
                 'products' => [
                     [
                         'name' => 'Burger',
@@ -50,14 +47,28 @@ class OrderSeeder extends Seeder
             ],
         ];
 
+        //Add an auto-generated order
+        // Generate order data
+        $products = Product::all();
+        $productsData = [];
+        foreach ($products as $product) {
+            $productsData[] = [
+                'name' => $product->name,
+                'quantity' => random_int(1, 4),
+            ];
+        }
+        $orders[] = [
+            'products' => $productsData,
+        ];
+
         // Create the orders
-        foreach ($orders as $order) {
-            $orderModel = \App\Models\Order::factory()->create($order);
+        foreach ($orders as $orderData) {
+            $order = Order::factory()->create();
 
             // Create the products
-            foreach ($order['products'] as $product) {
-                $productModel = \App\Models\Product::where('name', $product['name'])->first();
-                $orderModel->products()->attach($productModel->id, ['quantity' => $product['quantity']]);
+            foreach ($orderData['products'] as $productData) {
+                $product = Product::where('name', $productData['name'])->first();
+                $order->products()->attach($product->id, ['quantity' => $productData['quantity']]);
             }
         }
     }

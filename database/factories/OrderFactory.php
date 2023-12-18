@@ -17,7 +17,7 @@ class OrderFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => \App\Models\User::factory(),
+            'stock_updated' => $this->faker->boolean(),
         ];
     }
 }
