@@ -40,7 +40,7 @@ class Order extends Model
             foreach ($product->ingredients as $ingredient) {
                 // Assuming that the quantity of the ingredient is in grams,
                 // and order is validated so that stock will never be negative
-                $ingredient->quantity -= max($product->pivot->quantity * $ingredient->pivot->quantity, 0);
+                $ingredient->quantity -= $product->pivot->quantity * $ingredient->pivot->quantity;
                 $ingredient->save();
             }
         }
